@@ -28,7 +28,7 @@ type ApiGroup = {
 };
 
 const quickStats = [
-  { label: "API 후보", value: "36", detail: "9개 영역" },
+  { label: "API 후보", value: "36", detail: "2개 구현" },
   { label: "API 연결 방식", value: "REST", detail: "키 관리 준비" },
   { label: "화면 구조", value: "Hub", detail: "목록에서 확장" },
 ];
@@ -41,7 +41,7 @@ const apiGroups: ApiGroup[] = [
     tone: "bg-[#EAF2FF] text-[#1452A4]",
     items: [
       { label: "공공데이터포털", href: "/apis/public-data" },
-      "행안부 주소",
+      { label: "행안부 주소", href: "/apis/address" },
       "서울 열린데이터광장",
       "KOSIS 통계",
     ],
