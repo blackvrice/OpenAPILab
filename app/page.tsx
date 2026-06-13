@@ -28,7 +28,7 @@ type ApiGroup = {
 };
 
 const quickStats = [
-  { label: "API 후보", value: "36", detail: "4개 구현" },
+  { label: "API 후보", value: "36", detail: "8개 구현" },
   { label: "API 연결 방식", value: "REST", detail: "키 관리 준비" },
   { label: "화면 구조", value: "Hub", detail: "목록에서 확장" },
 ];
@@ -51,7 +51,12 @@ const apiGroups: ApiGroup[] = [
     description: "예보, 미세먼지, 수질, 해양 데이터를 대시보드로 연결",
     icon: CloudSun,
     tone: "bg-[#EAF8EF] text-[#137246]",
-    items: ["기상청 단기예보", "에어코리아", "환경공단 수질", "해양 조석"],
+    items: [
+      { label: "기상청 단기예보", href: "/apis/weather-forecast" },
+      { label: "에어코리아", href: "/apis/air-korea" },
+      { label: "환경공단 수질", href: "/apis/water-quality" },
+      { label: "해양 조석", href: "/apis/ocean-tide" },
+    ],
   },
   {
     title: "지도/교통",
