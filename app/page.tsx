@@ -24,7 +24,7 @@ type ApiGroup = {
   description: string;
   icon: LucideIcon;
   tone: string;
-  items: string[];
+  items: Array<string | { label: string; href: string }>;
 };
 
 const quickStats = [
@@ -39,7 +39,12 @@ const apiGroups: ApiGroup[] = [
     description: "국가·지자체 데이터와 주소, 통계, 행정 코드 API",
     icon: Building2,
     tone: "bg-[#EAF2FF] text-[#1452A4]",
-    items: ["공공데이터포털", "행안부 주소", "서울 열린데이터광장", "KOSIS 통계"],
+    items: [
+      { label: "공공데이터포털", href: "/apis/public-data" },
+      "행안부 주소",
+      "서울 열린데이터광장",
+      "KOSIS 통계",
+    ],
   },
   {
     title: "날씨/환경",
@@ -234,7 +239,7 @@ export default function Home() {
                   </span>
                 </div>
                 <code className="mt-4 block overflow-x-auto rounded-md bg-[#0F172A] px-4 py-3 text-sm text-[#DDEBFF]">
-                  GET /api/weather/forecast?region=seoul
+                  GET /api/public-data-portal?q=날씨
                 </code>
               </div>
               <div className="grid gap-5 border-b border-[#DDE5EF] pb-5 sm:grid-cols-2">
@@ -326,18 +331,35 @@ export default function Home() {
                   </span>
                 </div>
                 <ul className="mt-5 grid gap-2">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex min-h-10 items-center justify-between gap-3 rounded-md border border-[#EEF2F7] bg-[#FAFBFD] px-3 py-2 text-sm font-medium text-[#334155]"
-                    >
-                      <span>{item}</span>
-                      <ArrowRight
-                        className="size-4 shrink-0 text-[#94A3B8]"
-                        aria-hidden="true"
-                      />
-                    </li>
-                  ))}
+                  {group.items.map((item) => {
+                    const label = typeof item === "string" ? item : item.label;
+                    const href = typeof item === "string" ? undefined : item.href;
+
+                    return (
+                      <li key={label}>
+                        {href ? (
+                          <a
+                            href={href}
+                            className="flex min-h-10 items-center justify-between gap-3 rounded-md border border-[#DDE5EF] bg-[#F4F8FF] px-3 py-2 text-sm font-bold text-[#1452A4] hover:border-[#9DB2CF]"
+                          >
+                            <span>{label}</span>
+                            <ArrowRight
+                              className="size-4 shrink-0"
+                              aria-hidden="true"
+                            />
+                          </a>
+                        ) : (
+                          <span className="flex min-h-10 items-center justify-between gap-3 rounded-md border border-[#EEF2F7] bg-[#FAFBFD] px-3 py-2 text-sm font-medium text-[#334155]">
+                            <span>{label}</span>
+                            <ArrowRight
+                              className="size-4 shrink-0 text-[#94A3B8]"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </article>
             );
